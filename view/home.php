@@ -58,12 +58,12 @@
                 <div class="panel-body" style="padding:0">
                     <?php if( $data["admin"] ){ ?>
                         <table class="forum">
-                            <?php foreach( $data["forum"]["admin"] as $forum ){ ?>
+                            <?php foreach( $data["section"]["admin"] as $section ){ ?>
                                 <tr>
                                     <td><span class="glyphicon glyphicon-folder-open"></span></td>
                                     <td>
-                                        <div><a href="/<?php echo $forum["id"]; ?>"><?php echo $forum["name"]; ?></a></div>
-                                        <p>Posts: <strong><?php echo count($forum["posts"]); ?></strong></p>
+                                        <div><a href="/<?php echo $section["id"]; ?>"><?php echo $section["name"]; ?></a></div>
+                                        <p>Posts: <strong><?php echo $section["posts"]; ?></strong></p>
                                     </td>
                                 </tr>
                             <?php } ?>

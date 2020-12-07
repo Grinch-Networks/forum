@@ -21,22 +21,22 @@ class Forum
                 'posts' =>  count( Post::getBySection($section))
             );
         }
-        $admins = array();
+        $admin = array();
         foreach( Section::getAll(true) as $section ){
-            $admins[] = array(
+            $admin[] = array(
                 'id'    =>  $section->getId(),
                 'name'  =>  $section->getName(),
                 'posts' =>  count( Post::getBySection($section)),
             );
         }
         $data = array(
-            'admin'     =>  false,
+            'admin'     =>  User::isAdmin(),
             'header'    =>  array(
                 'title' =>  'Forum'
             ),
             'section'   =>  array(
                 'general'   =>  $general,
-                'admins'    =>  $admins
+                'admin'    =>  $admin
             )
         );
         \View::page('home',$data);
@@ -46,6 +46,10 @@ class Forum
         if( $post = Post::get($arg[2])  ){
             if( $post->getSectionId() == $arg[1] ){
                 $section = Section::get($post->getSectionId());
+                if( $section->isAdmin() && !User::isAdmin() ){
+                    \View::page('404');
+                    exit();
+                }
                 $comments = array();
                 foreach( Comment::getByPost($post) as $comment ){
                     $comments[] = array(
@@ -79,6 +83,10 @@ class Forum
 
     public static function section($arg){
         if( $section = Section::get($arg[1]) ){
+            if( $section->isAdmin() && !User::isAdmin() ){
+                \View::page('404');
+                exit();
+            }
             $posts = array();
             foreach( Post::getBySection($section) as $post ){
                 $posts[] = array(
