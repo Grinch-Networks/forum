@@ -131,7 +131,7 @@ class Db {
      */
     static public function read(){
         if( gettype(self::$read) == 'string' ) {
-            self::$read = new DbConnect( false, 'forum', 'forum','6HgeAZ0qC9T6CQIqJpD' );
+            self::$read = new DbConnect( false, '', '','' );
         }
         return self::$read;
     }
@@ -146,7 +146,7 @@ class Db {
      */
     static public function write(){
         if( gettype(self::$write) == 'string' ) {
-            self::$write = new DbConnect( true,  'forum', 'forum','6HgeAZ0qC9T6CQIqJpD' );
+            self::$write = new DbConnect( true,  '', '','' );
         }
         return self::$write;
     }
